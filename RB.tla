@@ -43,7 +43,3 @@ Next == \/ (\E msg \in Messages : RBroadcast(msg))
 SafetyOne == \
 
 RB == \* Add box next, typeInvariant etc
-=============================================================================
-\* Modification History
-\* Last modified Sat Apr 19 15:04:37 EDT 2014 by praseem
-\* Last modified Fri Apr 18 19:45:21 EDT 2014 by Suvidha
