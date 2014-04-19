@@ -34,10 +34,16 @@ Deliver(p,msg) ==  /\ dMsgQ' =  IF \neg(msg \in dMsgQ[p])
 
 \*Next == (\A msg \in Messages : RBroadcast(msg)) \/ RDeliver
 Next == \/ (\E msg \in Messages : RBroadcast(msg)) 
-        \/   \E p \in Processes, m \in Messages : Deliver(p,m)
+        \/ (\E p \in Processes, m \in Messages : Deliver(p,m))
 \* Next == \A msg \in Messages : Print(msg, TRUE)
 
-RB == Init \* Add box next, typeInvariant etc
+\* RB should be that, a message if delivered should be a message.
+\* Also, it should say that, a delivered message should be send by someone
+
+SafetyOne == \
+
+RB == \* Add box next, typeInvariant etc
 =============================================================================
 \* Modification History
+\* Last modified Sat Apr 19 15:04:37 EDT 2014 by praseem
 \* Last modified Fri Apr 18 19:45:21 EDT 2014 by Suvidha
