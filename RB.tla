@@ -1,7 +1,7 @@
 --------------------------------- MODULE RB ---------------------------------
 EXTENDS Integers, Sequences, TLC
 
-CONSTANTS Processes, Domain, Messages
+CONSTANTS Processes, Messages
 
 VARIABLES msgQ, dMsgQ
 
@@ -9,32 +9,35 @@ State == <<msgQ, dMsgQ>>
 
 \* Messages == [src: Processes, data : Domain \cup {""} ]
 
-Init == /\ msgQ = [p \in Processes |-> <<>>]
-        /\ dMsgQ = [p \in Processes |-> <<>>] 
+Init == /\ msgQ = [p \in Processes |-> {}]
+        /\ dMsgQ = [p \in Processes |-> {}] 
 
 TypeCheck == msgQ \in [Processes -> Seq(Messages)]
 
-Send(msg, p) == msgQ' = IF \neg(msg \in msgQ[p]) 
-                        THEN [msgQ EXCEPT ![p] = Append(msgQ[p], msg)] 
-                        ELSE UNCHANGED msgQ
-                                      
+Send(msg, p) == /\ msgQ' =  IF \neg(msg \in msgQ[p]) 
+                         THEN  [msgQ EXCEPT ![p] = msgQ[p] \cup {msg}] 
+                         ELSE  msgQ
+                /\ UNCHANGED dMsgQ
+                                     
 RBroadcast(msg) == /\ msg \in Messages
-                    /\ \A p \in Processes : Send(msg, p)
+                   /\ \A p \in Processes : Send(msg, p)
 
-Deliver(p) == \A msg \in msgQ[p] : /\ dMsgQ' =  IF \neg(msg \in dMsgQ[p]) 
-                                                THEN [dMsgQ EXCEPT ![p] = Append(dMsgQ[p], msg)] 
-                                                ELSE dMsgQ
-                                   /\ IF \neg(msg \in dMsgQ[p]) 
-                                      THEN RBroadcast(msg)
-                                      ELSE UNCHANGED State
+Deliver(p,msg) ==  /\ dMsgQ' =  IF \neg(msg \in dMsgQ[p]) 
+                                THEN [dMsgQ EXCEPT ![p] = dMsgQ[p] \cup {msg}] 
+                                ELSE dMsgQ
+                   /\ UNCHANGED msgQ
+                  \* /\ IF \neg(msg \in dMsgQ[p]) 
+                  \*                    THEN RBroadcast(msg) ---> If we add this, only 1 state is created.
+                  \*                    ELSE UNCHANGED State
 
-RDeliver == /\ \A p \in Processes : Deliver(p)     
+\*RDeliver ==  \A p \in Processes : Deliver(p,m)     
 
-Next == (\A msg \in Messages : RBroadcast(msg)) \/ RDeliver
+\*Next == (\A msg \in Messages : RBroadcast(msg)) \/ RDeliver
+Next == \/ (\E msg \in Messages : RBroadcast(msg)) 
+        \/   \E p \in Processes, m \in Messages : Deliver(p,m)
 \* Next == \A msg \in Messages : Print(msg, TRUE)
 
-RB == Init
+RB == Init \* Add box next, typeInvariant etc
 =============================================================================
 \* Modification History
-\* Last modified Fri Apr 18 18:02:49 EDT 2014 by praseem
-\* Created Fri Apr 18 14:17:44 EDT 2014 by praseem
+\* Last modified Fri Apr 18 19:45:21 EDT 2014 by Suvidha
