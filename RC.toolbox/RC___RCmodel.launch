@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.lamport.tla.toolbox.tool.tlc.modelCheck">
-<stringAttribute key="TLCCmdLineParameters" value="--"/>
+<stringAttribute key="TLCCmdLineParameters" value="--config /Users/praseem/Desktop/TLATemp/RC.cfg"/>
 <intAttribute key="autoLockTime" value="15"/>
-<stringAttribute key="configurationName" value="RBChannel"/>
+<stringAttribute key="configurationName" value="RCmodel"/>
 <intAttribute key="dfidDepth" value="100"/>
 <booleanAttribute key="dfidMode" value="false"/>
 <booleanAttribute key="distributedTLC" value="false"/>
@@ -13,22 +13,19 @@
 <intAttribute key="maxHeapSize" value="25"/>
 <intAttribute key="maxSetSize" value="1000000"/>
 <booleanAttribute key="mcMode" value="true"/>
-<stringAttribute key="modelBehaviorInit" value="Init"/>
+<stringAttribute key="modelBehaviorInit" value=""/>
 <stringAttribute key="modelBehaviorNext" value="Next"/>
 <stringAttribute key="modelBehaviorSpec" value=""/>
-<intAttribute key="modelBehaviorSpecType" value="2"/>
-<stringAttribute key="modelBehaviorVars" value="dMsgQ, msgQ"/>
+<intAttribute key="modelBehaviorSpecType" value="0"/>
+<stringAttribute key="modelBehaviorVars" value=""/>
 <booleanAttribute key="modelCorrectnessCheckDeadlock" value="true"/>
-<listAttribute key="modelCorrectnessInvariants">
-<listEntry value="1TypeCheck"/>
-</listAttribute>
+<listAttribute key="modelCorrectnessInvariants"/>
 <listAttribute key="modelCorrectnessProperties"/>
 <stringAttribute key="modelExpressionEval" value=""/>
 <stringAttribute key="modelParameterActionConstraint" value=""/>
 <listAttribute key="modelParameterConstants">
-<listEntry value="Processes;;{p1, p2};0;0"/>
-<listEntry value="Messages;;m1, m2;0;0"/>
-<listEntry value="qLen;;3;0;0"/>
+<listEntry value="Data;;[content: RMessage, seqNo: Nat];0;0"/>
+<listEntry value="RMessage;;Nat;0;0"/>
 </listAttribute>
 <stringAttribute key="modelParameterContraint" value=""/>
 <listAttribute key="modelParameterDefinitions"/>
@@ -39,6 +36,6 @@
 <intAttribute key="simuAril" value="-1"/>
 <intAttribute key="simuDepth" value="100"/>
 <intAttribute key="simuSeed" value="-1"/>
-<stringAttribute key="specName" value="RB"/>
+<stringAttribute key="specName" value="RC"/>
 <stringAttribute key="view" value=""/>
 </launchConfiguration>

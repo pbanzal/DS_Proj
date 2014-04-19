@@ -4,36 +4,44 @@ EXTENDS Integers, Sequences, TLC
 CONSTANTS Processes, Messages
 CONSTANT qLen
 
-VARIABLES msgQ, dMsgQ
-qConstraint == \A p \in Processes : Len(msgQ[p]) \leq qLen
+VARIABLES msgQ, dMsgQ, msgBag
 
-State == <<msgQ, dMsgQ>>
-
-\* Messages == [src: Processes, data : Domain \cup {""} ]
+\* qConstraint == \A p \in Processes : Len(msgQ[p]) \leq qLen
 
 Init == /\ msgQ = [p \in Processes |-> <<>>]
+        /\ msgBag = [p \in Processes |-> {}]
         /\ dMsgQ = [p \in Processes |-> <<>>] 
 
 TypeCheck == msgQ \in [Processes -> Seq(Messages)]
 
-Send(msg, p) == msgQ' = [msgQ EXCEPT ![p] = Append(msgQ[p],msg)]                         
-                
-                                     
-RBroadcast(msg,src) == /\ msg \in Messages
-                       /\ src \in Processes
-                       /\ \A p \in Processes\{src} : Send(msg, p) \* Send to all processes than itself
-                       /\ dMsgQ' = [dMsgQ EXCEPT ![src] = Append(dMsgQ[src], msg)] \* Deliver to itself
+Broadcast(msg, initialSrc, p) == /\ msgQ' = [msgQ EXCEPT ![p] = Append(msgQ[p],<<msg, initialSrc>>)]
+                                            
+                       
+ReliableBroadcast(msg, src) == /\ msg \in Messages
+                               /\ src \in Processes
+                               /\ \A p \in Processes \ {src} : Broadcast(msg, src, p) \* Send to all processes than itself
+                               /\ DeliverMsg(msg, src)
+                               
+DeliverMsg(msg, src) == /\ msg \in Messages
+                        /\ src \in Processes
+                        /\ 
                    
-Deliver(p) ==  /\ msgQ[p] # << >> 
-               /\ dMsgQ' = [dMsgQ EXCEPT ![p] = Append(dMsgQ[p], Head(msgQ[p]) ) ] \* Deliver to itself
+Deliver(p) ==  /\ msgQ[p] # << >>
+               /\ dMsgQ' =  IF Head(msgQ[p]) \notin msgBag[p] 
+                            THEN [dMsgQ EXCEPT ![p] = Append(dMsgQ[p], Head(msgQ[p]) ) ] \* Deliver to itself
+                            ELSE dMsgQ
+               /\ IF Head(msgQ[p]) \notin msgBag[p] 
+                  THEN RBroadcast(Head(msgQ[p]), p) 
+                            ELSE dMsgQ
                /\ msgQ' = [msgQ EXCEPT ![p] = Tail(msgQ[p])] \* Remove from receiver Q
-               /\ RBroadcast(Head(msgQ[p]),p) 
+                
 
-Next == \/ (\E msg \in Messages,src \in Processes: RBroadcast(msg,src) )  
-          
-       \/ (\E p \in Processes : Deliver(p))
+Next == \/ (\E msg \in Messages,src \in Processes: RBroadcast(msg, src, src) )  
+        \/ (\E p \in Processes : Deliver(p))
       
 
 RB == Init /\ [][Next]_<<msgQ,dMsgQ>> /\ TypeCheck
 
+
 ========================
+\* END

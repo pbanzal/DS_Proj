@@ -23,7 +23,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2014-04-19 14:43:19)
+Starting... (2014-04-19 15:34:32)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
@@ -31,51 +31,22 @@ Computing initial states...
 @!@!@STARTMSG 2190:0 @!@!@
 Finished computing initial states: 1 distinct state generated.
 @!@!@ENDMSG 2190 @!@!@
-@!@!@STARTMSG 2110:1 @!@!@
-Invariant inv_139793299751416000 is violated.
-@!@!@ENDMSG 2110 @!@!@
-@!@!@STARTMSG 2121:1 @!@!@
-The behavior up to this point is:
-@!@!@ENDMSG 2121 @!@!@
-@!@!@STARTMSG 2217:4 @!@!@
-1: <Initial predicate>
-/\ dMsgQ = <<{}, {}, {}>>
-/\ msgQ = <<{}, {}, {}>>
-
-@!@!@ENDMSG 2217 @!@!@
-@!@!@STARTMSG 2217:4 @!@!@
-2: <Action line 25, col 20 to line 28, col 36 of module RB>
-/\ dMsgQ = <<{1}, {}, {}>>
-/\ msgQ = <<{}, {}, {}>>
-
-@!@!@ENDMSG 2217 @!@!@
-@!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2014-04-19 14:43:21
-@!@!@ENDMSG 2201 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 17, col 20 to line 19, col 35 of module RB: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 20, col 30 to line 20, col 34 of module RB: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 25, col 23 to line 27, col 42 of module RB: 1
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 28, col 33 to line 28, col 36 of module RB: 1
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2202:0 @!@!@
-End of statistics.
-@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2193:0 @!@!@
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 8.2E-15
+  based on the actual fingerprints:  val = 1.9E-14
+@!@!@ENDMSG 2193 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(2) at 2014-04-19 14:43:21: 2 states generated (1666 s/min), 2 distinct states found (1666 ds/min), 1 states left on queue.
+Progress(7) at 2014-04-19 15:34:37: 901 states generated (52896 s/min), 225 distinct states found (13209 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-2 states generated, 2 distinct states found, 1 states left on queue.
+901 states generated, 225 distinct states found, 0 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 2.
+The depth of the complete state graph search is 7.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished. (2014-04-19 14:43:21)
+Finished. (2014-04-19 15:34:37)
 @!@!@ENDMSG 2186 @!@!@
