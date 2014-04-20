@@ -1,8 +1,8 @@
 ------------------------------ MODULE ModProc ------------------------------
 EXTENDS Naturals, Sequences
 
-CONSTANT RMessage, RBMessage
+CONSTANT RMessage
  
-Process == [id: Nat, seqNoRB: Nat, inQueue: Seq(RMessage), rbQueue: Seq(RBMessage)]
+Process == [id: Nat, seqNoRB: Nat, inQueue: Seq(RMessage)] 
 =============================================================================
 

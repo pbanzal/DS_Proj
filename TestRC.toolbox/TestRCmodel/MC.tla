@@ -1,32 +1,24 @@
 ---- MODULE MC ----
 EXTENDS TestRC, TLC
 
-\* CONSTANT definitions @modelParameterConstants:0Data
-const_1397951193725215000 == 
-{"d1","d2"}
-----
-
-\* CONSTANT definitions @modelParameterConstants:1RMessage
-const_1397951193736216000 == 
+\* CONSTANT definitions @modelParameterConstants:0ProcessId
+const_1398029347400107000 == 
 {0}
 ----
 
-\* CONSTRAINT definition @modelParameterContraint:0
-constr_1397951193747217000 ==
-constaint
+\* CONSTANT definitions @modelParameterConstants:1Data
+const_1398029347411108000 == 
+{0}
 ----
-\* INIT definition @modelBehaviorInit:0
-init_1397951193757218000 ==
-Init
+
+\* INIT definition @modelBehaviorNoSpec:0
+init_1398029347422109000 ==
+FALSE/\rp = 0
 ----
-\* NEXT definition @modelBehaviorNext:0
-next_1397951193768219000 ==
-Next
-----
-\* INVARIANT definition @modelCorrectnessInvariants:0
-inv_1397951193779220000 ==
-TypeInv
+\* NEXT definition @modelBehaviorNoSpec:0
+next_1398029347433110000 ==
+FALSE/\rp' = rp
 ----
 =============================================================================
 \* Modification History
-\* Created Sat Apr 19 19:46:33 EDT 2014 by praseem
+\* Created Sun Apr 20 17:29:07 EDT 2014 by praseem

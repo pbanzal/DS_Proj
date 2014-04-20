@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.lamport.tla.toolbox.tool.tlc.modelCheck">
-<stringAttribute key="TLCCmdLineParameters" value=""/>
+<stringAttribute key="TLCCmdLineParameters" value="--config /Users/praseem/Desktop/TLATemp/RC.cfg&#10;"/>
 <intAttribute key="autoLockTime" value="15"/>
 <stringAttribute key="configurationName" value="TestRCmodel"/>
 <intAttribute key="dfidDepth" value="100"/>
@@ -16,8 +16,8 @@
 <stringAttribute key="modelBehaviorInit" value="Init"/>
 <stringAttribute key="modelBehaviorNext" value="Next"/>
 <stringAttribute key="modelBehaviorSpec" value=""/>
-<intAttribute key="modelBehaviorSpecType" value="2"/>
-<stringAttribute key="modelBehaviorVars" value="p1, p2, q1, q2"/>
+<intAttribute key="modelBehaviorSpecType" value="0"/>
+<stringAttribute key="modelBehaviorVars" value="Processes"/>
 <booleanAttribute key="modelCorrectnessCheckDeadlock" value="true"/>
 <listAttribute key="modelCorrectnessInvariants">
 <listEntry value="1TypeInv"/>
@@ -26,8 +26,8 @@
 <stringAttribute key="modelExpressionEval" value=""/>
 <stringAttribute key="modelParameterActionConstraint" value=""/>
 <listAttribute key="modelParameterConstants">
-<listEntry value="Data;;{&quot;d1&quot;,&quot;d2&quot;};0;0"/>
-<listEntry value="RMessage;;{0};0;0"/>
+<listEntry value="ProcessId;;{0};0;0"/>
+<listEntry value="Data;;{0};0;0"/>
 </listAttribute>
 <stringAttribute key="modelParameterContraint" value="constaint"/>
 <listAttribute key="modelParameterDefinitions"/>

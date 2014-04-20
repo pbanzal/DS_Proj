@@ -1,33 +1,30 @@
 ------------------------------- MODULE TestRC -------------------------------
-EXTENDS RC
+EXTENDS RC, Naturals, Sequences, TLC  
 
+CONSTANT ProcessId
 
-VARIABLES p1, p2, q1, q2
+\* LOCAL Process == {[id |-> x, seqNoRB |-> 0, inQueue |-> <<>>] : x \in ProcessId}
+VARIABLE Processes, rp
+
+\* x == INSTANCE RC WITH Data <- MsgSet
+
+init == /\ Processes = [procId \in ProcessId |-> [id |-> procId, seqNoRB |-> 0, inQueue |-> <<>>]]
+        /\ rp = [id |-> 0, seqNoRB |-> 0, inQueue |-> <<>>]
  
-Init == /\ p1 = [id |-> 1, sendQueue |-> <<>>, inQueue |-> <<>>]
-        /\ p2 = [id |-> 2, sendQueue |-> <<>>, inQueue |-> <<>>]
-        /\ q1 = <<>>
-        /\ q2 = <<>>
-       
-constraint == Len(q1) \leq 1 /\ Len(q2) \leq 1 /\ Len(p1.inQueue) \leq 1  /\ Len(p2.inQueue) \leq 1
- 
-TypeInv == /\ p1 \in Proc!Process
-           /\ p2 \in Proc!Process
+constraint == \A p \in Processes : Len(p.inQueue) \leq 1
 
-Next == \/ /\ \E m \in RMessage : Send(m, p1) 
-           /\ UNCHANGED <<p2,q1,q2>> 
-        \/ /\ \E m \in RMessage : Send(m, p2)
-           /\ UNCHANGED <<p1,q1,q2>>
-        \/ /\ Recv(q1, p1)
-           /\ UNCHANGED <<p2,q2>>
-        \/ /\ Recv(q2, p2)
-           /\ UNCHANGED <<p1,q1>>
-        
-TestRC == Init /\ [][Next]_<<p1, p2, q1, q2>>
+CB(msg) == /\ msg \in Data
+           \*/\ Print(msg, TRUE)   
 
-THEOREM TestRC => []TypeInv 
+Next == \E pid \in ProcessId:
+            /\ \/ \E m \in Data : Send(m, Processes[pid])
+               \/ Recv(CB, Processes[pid])
+            /\ Processes' = [Processes EXCEPT ![pid] = [id |-> @.id, seqNoRB |-> @.seqNoRB, inQueue |-> @.inQueue]]
+          
+TestRC == init /\ [][Next]_<<Processes, rp>>
+
 
 =============================================================================
 \* Modification History
-\* Last modified Sat Apr 19 19:40:56 EDT 2014 by praseem
+\* Last modified Sun Apr 20 17:29:02 EDT 2014 by praseem
 \* Created Sat Apr 19 19:04:04 EDT 2014 by praseem
