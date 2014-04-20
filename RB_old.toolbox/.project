@@ -21,19 +21,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>ModProc.tla</name>
-			<type>1</type>
-			<location>/Users/praseem/Desktop/TLATemp/ModProc.tla</location>
-		</link>
-		<link>
 			<name>RB.tla</name>
 			<type>1</type>
 			<location>/Users/praseem/Desktop/TLATemp/RB.tla</location>
-		</link>
-		<link>
-			<name>RC.tla</name>
-			<type>1</type>
-			<location>/Users/praseem/Desktop/TLATemp/RC.tla</location>
 		</link>
 	</linkedResources>
 </projectDescription>

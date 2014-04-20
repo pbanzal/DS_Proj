@@ -1,17 +1,18 @@
 --------------------------------- MODULE RC ---------------------------------
 EXTENDS  Naturals, Sequences, ModProc
 
-CONSTANT RMessage 
+CONSTANT Data 
 
-Proc == INSTANCE ModProc WITH Data <- [content: RMessage, seqNo: Nat]
+Proc == INSTANCE ModProc WITH RMessage <- [content: Data]
 
-Send(msg, p) == /\ msg \in RMessage
+Send(msg, p) == /\ msg \in Data
                 /\ p \in Proc!Process
-                /\ p' = [p EXCEPT !.inQueue = Append(@, [content |-> msg, seqNo |-> 1])]
+                /\ p' = [p EXCEPT !.inQueue = Append(@, [content |-> msg])]
                    
 Recv(deliverQueue, p) ==  /\ p \in Proc!Process
-                          /\ deliverQueue \in Seq(RMessage)
+                          /\ deliverQueue \in Seq(Data)
                           /\ p.inQueue # <<>>
+                          /\ deliverQueue = <<>>
                           /\ deliverQueue' = Append(deliverQueue, Head(p.inQueue).content)
                           /\ p' = [p EXCEPT !.inQueue = Tail(@)]
 

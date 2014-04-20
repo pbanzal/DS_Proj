@@ -1,47 +1,40 @@
 --------------------------------- MODULE RB ---------------------------------
-EXTENDS Integers, Sequences, TLC
+EXTENDS RC, Integers, Sequences, TLC
 
-CONSTANTS Processes, Messages
-CONSTANT qLen
+CONSTANTS procSet, RBdata
 
-VARIABLES msgQ, dMsgQ, msgBag
+VARIABLES mapProcMsg
+ 
+RBproc == INSTANCE ModProc WITH RBMessage <- [content: RBdata, seqNo: Nat, src: Nat]     
+RChannel == INSTANCE RC WITH Data <- RBMessage 
 
-\* qConstraint == \A p \in Processes : Len(msgQ[p]) \leq qLen
+TypeInv == /\ procSet \subseteq Proc!Process
+           /\ mapProcMsg \in [procSet -> SUBSET RBMessage]
 
-Init == /\ msgQ = [p \in Processes |-> <<>>]
-        /\ msgBag = [p \in Processes |-> {}]
-        /\ dMsgQ = [p \in Processes |-> <<>>] 
+Init == /\ \A p \in procSet: mapProcMsg[p] = {}
 
-TypeCheck == msgQ \in [Processes -> Seq(Messages)]
-
-Broadcast(msg, initialSrc, p) == /\ msgQ' = [msgQ EXCEPT ![p] = Append(msgQ[p],<<msg, initialSrc>>)]
-                                            
-                       
-ReliableBroadcast(msg, src) == /\ msg \in Messages
-                               /\ src \in Processes
-                               /\ \A p \in Processes \ {src} : Broadcast(msg, src, p) \* Send to all processes than itself
-                               /\ DeliverMsg(msg, src)
-                               
-DeliverMsg(msg, src) == /\ msg \in Messages
-                        /\ src \in Processes
-                        /\ 
-                   
-Deliver(p) ==  /\ msgQ[p] # << >>
-               /\ dMsgQ' =  IF Head(msgQ[p]) \notin msgBag[p] 
-                            THEN [dMsgQ EXCEPT ![p] = Append(dMsgQ[p], Head(msgQ[p]) ) ] \* Deliver to itself
-                            ELSE dMsgQ
-               /\ IF Head(msgQ[p]) \notin msgBag[p] 
-                  THEN RBroadcast(Head(msgQ[p]), p) 
-                            ELSE dMsgQ
-               /\ msgQ' = [msgQ EXCEPT ![p] = Tail(msgQ[p])] \* Remove from receiver Q
+Broadcast(msg, p) ==  /\ msg \in RBdata
+                      /\ LET currentMsg == [content |->msg, seqNo |-> p.seqNoRB, src |-> p.id] 
+                         IN  \A dstP \in procSet: RChannel!Send(currentMsg, dstP)
+                      /\ p' = [p EXCEPT !.seqNoRB = @+1] 
+                      /\ UNCHANGED mapProcMsg
+                      
+Forward(msg) == /\ msg \in RBMessage
+                /\ \A dstP \in procSet: RChannel!Send(msg, dstP)
                 
-
-Next == \/ (\E msg \in Messages,src \in Processes: RBroadcast(msg, src, src) )  
-        \/ (\E p \in Processes : Deliver(p))
-      
-
-RB == Init /\ [][Next]_<<msgQ,dMsgQ>> /\ TypeCheck
-
-
-========================
-\* END
+Deliver(deliverQ, p) == /\ p \in RBproc!Process
+                        /\ deliverQ \in Seq(RBdata)
+                        /\ deliverQ = <<>>
+                        /\ RChannel!Recv(p.rbQueue, p)
+                        /\ LET currMsg == Head(p.rbQueue) IN
+                           IF currMsg \notin mapProcMsg[p]
+                           THEN  /\ deliverQ' = <<currMsg>>
+                                 /\ mapProcMsg' = [mapProcMsg EXCEPT ![p] = @ \cup currMsg]
+                                 /\ Forward(currMsg) 
+                                 /\ p' = [p EXCEPT !.rbQueue = Tail(@)]
+                           ELSE UNCHANGED mapProcMsg 
+                                  
+=============================================================================
+\* Modification History
+\* Last modified Sat Apr 19 23:24:16 EDT 2014 by praseem
+\* Created Sat Apr 19 21:31:06 EDT 2014 by praseem
