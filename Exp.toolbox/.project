@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Exp</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>toolbox.builder.TLAParserBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>toolbox.builder.PCalAlgorithmSearchingBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>toolbox.natures.TLANature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>exp.tla</name>
+			<type>1</type>
+			<location>/Users/gowtham/git/tla-tools/tla/examples/SpecifyingSystems/DS_Proj/exp.tla</location>
+		</link>
+	</linkedResources>
+</projectDescription>
