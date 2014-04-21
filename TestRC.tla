@@ -1,30 +1,28 @@
 ------------------------------- MODULE TestRC -------------------------------
-EXTENDS RC, Naturals, Sequences, TLC  
+EXTENDS Naturals, Sequences, TLC
 
-CONSTANT ProcessId
+CONSTANT ProcessId, Message, newRcvQ(_)
 
-\* LOCAL Process == {[id |-> x, seqNoRB |-> 0, inQueue |-> <<>>] : x \in ProcessId}
-VARIABLE Processes, rp
+proc == INSTANCE ModProc 
 
-\* x == INSTANCE RC WITH Data <- MsgSet
+ASSUME \A pid \in ProcessId: newRcvQ(pid) \in Seq(Message)
 
-init == /\ Processes = [procId \in ProcessId |-> [id |-> procId, seqNoRB |-> 0, inQueue |-> <<>>]]
-        /\ rp = [id |-> 0, seqNoRB |-> 0, inQueue |-> <<>>]
+rChannel(pid) == INSTANCE RC WITH Data <- Message, rcvQ <- newRcvQ(pid) 
  
-constraint == \A p \in Processes : Len(p.inQueue) \leq 1
+(*constraint == \A p \in Processes : Len(p.inQueue) \leq 1*)
 
-CB(msg) == /\ msg \in Data
+CB(msg) == /\ msg \in Message 
            \*/\ Print(msg, TRUE)   
 
 Next == \E pid \in ProcessId:
-            /\ \/ \E m \in Data : Send(m, Processes[pid])
-               \/ Recv(CB, Processes[pid])
-            /\ Processes' = [Processes EXCEPT ![pid] = [id |-> @.id, seqNoRB |-> @.seqNoRB, inQueue |-> @.inQueue]]
+            /\ \/ \E m \in Message : rChannel(pid)!Send(m)
+               \/ rChannel(pid)!Recv(CB)
+          \*  /\ Processes' = [Processes EXCEPT ![pid] = [id |-> @.id, seqNoRB |-> @.seqNoRB, inQueue |-> @.inQueue]]
           
-TestRC == init /\ [][Next]_<<Processes, rp>>
+TestRC == init /\ [][Next]_<<Processes>>
 
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Apr 20 17:30:15 EDT 2014 by praseem
+\* Last modified Sun Apr 20 18:59:53 EDT 2014 by praseem
 \* Created Sat Apr 19 19:04:04 EDT 2014 by praseem

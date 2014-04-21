@@ -7,9 +7,9 @@ Proc == INSTANCE ModProc WITH RMessage <- [content: Data]
 
 
 Send(msg, p) == /\ msg \in Data
-                /\ p \in Proc!Process
-                /\ Print(" send", TRUE)
-                /\ p' = [p EXCEPT !.inQueue = Append(@, [content |-> msg])]
+                        /\ p \in Proc!Process
+                        /\ p' = [p EXCEPT !.inQueue = Append(@, [content |-> msg])]
+                        /\ Print(p.inQueue , TRUE)
                    
 Recv(CB(_), p) ==   /\ p \in Proc!Process
                     /\ p.inQueue # <<>>
