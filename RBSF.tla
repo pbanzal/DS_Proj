@@ -10,13 +10,64 @@ CONSTANTS
     
 
 VARIABLES 
-     processMap
+     rcQ,rbQ,seqNoQ,delSet
      
 
 RBMessage == [content: Message, sendId : processes, seqNo: Nat]
 RMessage == [content: RBMessage]
+                 
+Init == /\ rcQ = [p \in processes |-> <<>>]
+        /\ rbQ = [p \in processes |-> <<>>]
+        /\ seqNoQ = [p \in processes |-> 0]
+        /\ delSet = [p \in processes |-> {}]
+        
+Broadcast(msg, pid) == /\ msg \in Message
+                       /\ pid \in processes
+                       \*/\ Print("Broadcast Start",TRUE)
+                       
+                       /\ rcQ' = [p \in processes |-> Append(rcQ[p],  [content |->  msg, 
+                                                                       sendId |-> pid, 
+                                                                       seqNo |-> seqNoQ[pid]])]
+                       /\ seqNoQ' = [seqNoQ EXCEPT ![pid] = @+1]
+                       /\ UNCHANGED <<rbQ,delSet>>
+                       \*/\ Print("Broadcast Done",TRUE)
+                        
+Deliver(CB(_), pid) == /\ pid \in processes
+                       /\ LET newCB(currMsg) == /\ currMsg \in RBMessage
+                                                /\ IF currMsg \notin delSet[pid]
+                                                   THEN  
+                                                    
+                                                        \* Add to delivered set
+                                                        /\ delSet' = [delSet EXCEPT ![pid] = @ \cup {currMsg}] 
+                                                      
+                                                       \* Put in other processes rcQ (Forward) + Remove from current rcQ
+                                                        /\ LET tmpQ == [p \in processes |-> Append(rcQ[p], currMsg)]  IN
+                                                            /\ rcQ' = [tmpQ EXCEPT ![pid] = Tail(@)]
+                                                            /\ Print("********************************************",TRUE)
+            
+                                                       \* Callback
+                                                        /\ CB(currMsg.content) 
+                                                        /\ UNCHANGED <<rbQ,seqNoQ>>
+                                                    
+                                                    ELSE 
+                                                        \* Remove frm rcQ 
+                                                        /\ rcQ' = [rcQ EXCEPT ![pid] = Tail(@)] 
+                                                        /\ UNCHANGED <<delSet,rbQ,seqNoQ>>
+                           IN   /\ rcQ[pid] # <<>>
+                                /\ newCB(Head(rcQ[pid]))
+                                /\ Print("DELIVERED",TRUE)
 
-Send(p, msg) == \*/\ msg \in Message
+myCallBackForRB(m) == Print(m, TRUE)                       
+
+NextForRB ==  \E pid \in processes:
+                 \/  \E m \in Message : Broadcast(m,pid)
+                 \/ Deliver(myCallBackForRB,pid)
+             
+RBSpec == Init /\ [][NextForRB]_<<rcQ,rbQ,seqNoQ,delSet>>
+
+(*
+
+(*Send(p, msg) == \*/\ msg \in Message
                 /\ Print("StartSEnd",TRUE)
                 /\ Print(processMap[p].rcvQ,TRUE)
                 /\ Print(msg,TRUE)
@@ -25,20 +76,19 @@ Send(p, msg) == \*/\ msg \in Message
                    
 Recv(CB(_), p) ==  /\ processMap[p].rcvQ # <<>>
                          /\ CB(Head(processMap[p].rcvQ).content)
-                         /\ processMap' = [processMap EXCEPT ![p].rcvQ = Tail(@)]
+                         /\ processMap' = [processMap EXCEPT ![p].rcvQ = Tail(@)]*)
 
-InitProcesses == processMap = [p \in processes |-> [rcvQ |-> <<>>, id |-> p, seqNo |-> 0, rbBag |-> {}]]  
-                 
-init == InitProcesses
-
-
+(* /\ LET tmpQ == [p \in processes\{pid} |-> Append(rcQ[p], currMsg)] IN
+                                                           /\ tmpQ = [tmpQ EXCEPT ![pid] ] = Tail(@)]
+                                                           /\ rcQ' = tmpQ
+                                                          *)      
 myCallBackForRC(m) == Print(m, TRUE)
                            
 NextForRC == /\ \E pid \in processes:
                 \/ \E m \in Message : Send(pid,m)
                 \/ Recv(myCallBackForRC,pid)
                 
-MyTestRC == init /\ [][NextForRC]_<<processMap>>
+MyTestRC == init /\ [][NextForRC]_<<processMap>>*)
 
 (*
 Broadcast(msg, pid) == /\ msg \in Message
@@ -79,5 +129,5 @@ NextForRB == /\ \E pid \in processes:
  *)                          
 =============================================================================
 \* Modification History
-\* Last modified Mon Apr 21 20:25:23 EDT 2014 by Suvidha
+\* Last modified Mon Apr 21 23:55:46 EDT 2014 by Suvidha
 \* Created Mon Apr 21 17:38:12 EDT 2014 by Suvidha
