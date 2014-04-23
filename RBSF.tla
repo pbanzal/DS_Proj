@@ -2,68 +2,120 @@
 EXTENDS  
     Naturals, 
     Sequences, 
-    TLC
+    TLC,
+    FiniteSets
 
 CONSTANTS 
     Message, 
-    processes
+    processes,
+    qLen
     
 
 VARIABLES 
      rcQ,rbQ,seqNoQ,delSet
      
 
-RBMessage == [content: Message, sendId : processes, seqNo: Nat]
+RBMessage == [content: Message, sendId : processes]\*, seqNo:{0}]
 RMessage == [content: RBMessage]
-                 
-Init == /\ rcQ = [p \in processes |-> <<>>]
+RCMessage == [content : Message]
+
+
+Debug(msg,level) == IF level > 1 THEN Print(msg, TRUE) ELSE  TRUE
+
+Init == /\ rcQ = [p \in processes |-> {}]
         /\ rbQ = [p \in processes |-> <<>>]
         /\ seqNoQ = [p \in processes |-> 0]
-        /\ delSet = [p \in processes |-> {}]
+        /\ delSet = [p \in processes |-> {}]   
         
-Broadcast(msg, pid) == /\ msg \in Message
-                       /\ pid \in processes
-                       \*/\ Print("Broadcast Start",TRUE)
-                       
-                       /\ rcQ' = [p \in processes |-> Append(rcQ[p],  [content |->  msg, 
-                                                                       sendId |-> pid, 
-                                                                       seqNo |-> seqNoQ[pid]])]
-                       /\ seqNoQ' = [seqNoQ EXCEPT ![pid] = @+1]
-                       /\ UNCHANGED <<rbQ,delSet>>
-                       \*/\ Print("Broadcast Done",TRUE)
+Perms == Permutations(rcQ)
+       
+       
+Send(p, msg) == \*/\ msg \in Message
+                \*/\ Print("StartSEnd",TRUE)
+                \*/\ rcQ' \in [processes -> SUBSET RMessage]
+                \*/\ Print(msg,TRUE)
+                /\ rcQ'[p] = rcQ[p] \cup {[content |-> msg]}
+                
+                \*/\ Print("DoneSEnd",TRUE)
+               
+Forward(p, msg) ==  /\ Debug("Forward Start", 1)
+                    \* /\ msg \in RBMessage
+                    \*/\ \A dstP \in processes\{p}: Send(dstP, msg)   
+                    /\ Debug("Forward End", 1)
+                   
+Recv(CB(_), p) ==  /\ rcQ[p] # {}
+                   /\ LET elem == CHOOSE x \in rcQ[p] : TRUE IN
+                        /\ CB(elem.content)
+                        /\ rcQ'[p] = rcQ[p]\{elem}
                         
-Deliver(CB(_), pid) == /\ pid \in processes
-                       /\ LET newCB(currMsg) == /\ currMsg \in RBMessage
-                                                /\ IF currMsg \notin delSet[pid]
-                                                   THEN  
-                                                    
-                                                        \* Add to delivered set
-                                                        /\ delSet' = [delSet EXCEPT ![pid] = @ \cup {currMsg}] 
-                                                      
-                                                       \* Put in other processes rcQ (Forward) + Remove from current rcQ
-                                                        /\ LET tmpQ == [p \in processes |-> Append(rcQ[p], currMsg)]  IN
-                                                            /\ rcQ' = [tmpQ EXCEPT ![pid] = Tail(@)]
-                                                            /\ Print("********************************************",TRUE)
-            
-                                                       \* Callback
+                        
+myCallBackForRC(m) == /\ Debug("Received by Channel", 1)
+                           
+NextForRC == /\ rcQ' \in [processes -> SUBSET RCMessage]
+             /\ \E pid \in processes:
+                \/ \E m \in Message : Send(pid,m)
+                \/ Recv(myCallBackForRC,pid)
+             /\ UNCHANGED <<rbQ,seqNoQ,delSet>>
+                
+MyTestRC == Init /\ [][NextForRC]_<<rbQ,seqNoQ,delSet>>
+        
+Broadcast(msg, pid) ==  /\ Debug("_____________________________________START............."\cup pid,2)
+                        /\ msg \in Message
+                        /\ pid \in processes
+                        /\ seqNoQ[pid] \leq 0
+                        /\ seqNoQ' = [seqNoQ EXCEPT ![pid] = @+1]
+                        /\ Debug("Broadcast Start" \cup rcQ,2)
+                        /\ rcQ' \in [processes -> SUBSET RMessage]
+                        
+                        /\ \A p \in processes : Send(p,[content |->  msg, sendId |-> pid])\*, seqNo |-> seqNoQ[pid]])           
+                        /\ Debug("Broadcast Done" \cup rcQ \cup pid \cup rcQ',2)
+                       
+                        /\ UNCHANGED <<rbQ,delSet>>
+                       
+               
+Deliver(CB(_), pid) ==  /\ Debug("_____________________________________START............."\cup pid,2)
+                        /\ pid \in processes
+                        /\ rcQ' \in [processes -> SUBSET RMessage]
+                        /\ Debug("delset" \cup delSet,2)
+                        /\ LET newCB(currMsg) ==    \*/\ currMsg \in RBMessage
+                                                        IF currMsg \notin delSet[pid] THEN  
+                                                        /\ delSet' = [delSet EXCEPT ![pid] = @ \cup {currMsg}]  \* Add to delivered set
+                                                        \* Put in other processes rcQ (Forward) + Remove from current rcv
+                                                        /\ Forward(pid,currMsg)
+                                                        \*/\ Debug("Rmv from rcQ", 2)
+                                                        /\ rcQ'[pid] = rcQ[pid]\{currMsg} 
+                                                                        
+                                                        \* Callback
                                                         /\ CB(currMsg.content) 
                                                         /\ UNCHANGED <<rbQ,seqNoQ>>
                                                     
-                                                    ELSE 
+                                                        ELSE 
                                                         \* Remove frm rcQ 
-                                                        /\ rcQ' = [rcQ EXCEPT ![pid] = Tail(@)] 
+                                                        /\ Debug("ELSE PART", 2)
+                                                        /\ rcQ'[pid] = rcQ[pid]\{currMsg}
                                                         /\ UNCHANGED <<delSet,rbQ,seqNoQ>>
-                           IN   /\ rcQ[pid] # <<>>
-                                /\ newCB(Head(rcQ[pid]))
-                                /\ Print("DELIVERED",TRUE)
+                               IN   /\ rcQ[pid] # {}
+                                
+                                    /\ LET elem == CHOOSE x \in rcQ[pid] : TRUE IN
+                                        /\ Debug("String chosen" \cup elem,1)
+                                        /\ Debug(elem,1)
+                                   
+                                        /\ newCB(elem)
+                                        \*/\ newCB(Head(rcQ[pid]))
+                                        /\ Debug("rcq" \cup rcQ,2)
+                                        /\ Debug("DELIVERED",2)
 
-myCallBackForRB(m) == Print(m, TRUE)                       
+myCallBackForRB(m) ==   /\ Debug("Delivered by RB",2) 
+                        /\ Debug(m, 2)                       
 
-NextForRB ==  \E pid \in processes:
-                 \/  \E m \in Message : Broadcast(m,pid)
-                 \/ Deliver(myCallBackForRB,pid)
+NextForRB ==  \E pid \in processes: 
+                \/ \E m \in Message :
+                  \/ Broadcast(m,pid)
+                \/ Deliver(myCallBackForRB,pid)
+               
              
-RBSpec == Init /\ [][NextForRB]_<<rcQ,rbQ,seqNoQ,delSet>>
+RBSpec ==   /\ Init 
+            /\ [][NextForRB]_<<rcQ,rbQ,seqNoQ,delSet>>
 
 (*
 
@@ -129,5 +181,5 @@ NextForRB == /\ \E pid \in processes:
  *)                          
 =============================================================================
 \* Modification History
-\* Last modified Mon Apr 21 23:55:46 EDT 2014 by Suvidha
+\* Last modified Wed Apr 23 10:14:34 EDT 2014 by Suvidha
 \* Created Mon Apr 21 17:38:12 EDT 2014 by Suvidha
