@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.lamport.tla.toolbox.tool.tlc.modelCheck">
-<stringAttribute key="TLCCmdLineParameters" value="-dump graphDump"/>
+<stringAttribute key="TLCCmdLineParameters" value=""/>
 <intAttribute key="autoLockTime" value="15"/>
 <stringAttribute key="configurationName" value="Model_1"/>
 <intAttribute key="dfidDepth" value="100"/>
@@ -14,19 +14,19 @@
 <intAttribute key="maxSetSize" value="1000000"/>
 <booleanAttribute key="mcMode" value="true"/>
 <stringAttribute key="modelBehaviorInit" value="Init"/>
-<stringAttribute key="modelBehaviorNext" value="NextForRB"/>
+<stringAttribute key="modelBehaviorNext" value="Next"/>
 <stringAttribute key="modelBehaviorSpec" value=""/>
 <intAttribute key="modelBehaviorSpecType" value="2"/>
-<stringAttribute key="modelBehaviorVars" value="seqNoQ, rcQ, deliveredSet, bQ, rbQ"/>
+<stringAttribute key="modelBehaviorVars" value="seqNoQ, rcQ, deliveredSet, bQ, crashed, rbQ"/>
 <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
 <listAttribute key="modelCorrectnessInvariants"/>
 <listAttribute key="modelCorrectnessProperties"/>
 <stringAttribute key="modelExpressionEval" value=""/>
 <stringAttribute key="modelParameterActionConstraint" value=""/>
 <listAttribute key="modelParameterConstants">
-<listEntry value="processes;;{1,2};0;0"/>
-<listEntry value="qLen;;1;0;0"/>
-<listEntry value="Message;;{&quot;M1&quot;, &quot;M2&quot;, &quot;M3&quot;};0;0"/>
+<listEntry value="processes;;{1,2,3};0;0"/>
+<listEntry value="Message;;{&quot;M1&quot;};0;0"/>
+<listEntry value="crashedProc;;{};0;0"/>
 </listAttribute>
 <stringAttribute key="modelParameterContraint" value=""/>
 <listAttribute key="modelParameterDefinitions"/>

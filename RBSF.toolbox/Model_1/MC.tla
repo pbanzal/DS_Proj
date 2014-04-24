@@ -2,28 +2,28 @@
 EXTENDS RBSF, TLC
 
 \* CONSTANT definitions @modelParameterConstants:0processes
-const_1398354867775232000 == 
-{1,2}
+const_139836388982797000 == 
+{1,2,3}
 ----
 
-\* CONSTANT definitions @modelParameterConstants:1qLen
-const_1398354867786233000 == 
-1
+\* CONSTANT definitions @modelParameterConstants:1Message
+const_139836388983898000 == 
+{"M1"}
 ----
 
-\* CONSTANT definitions @modelParameterConstants:2Message
-const_1398354867797234000 == 
-{"M1", "M2", "M3"}
+\* CONSTANT definitions @modelParameterConstants:2crashedProc
+const_139836388984899000 == 
+{}
 ----
 
 \* INIT definition @modelBehaviorInit:0
-init_1398354867807235000 ==
+init_1398363889860100000 ==
 Init
 ----
 \* NEXT definition @modelBehaviorNext:0
-next_1398354867819236000 ==
-NextForRB
+next_1398363889870101000 ==
+Next
 ----
 =============================================================================
 \* Modification History
-\* Created Thu Apr 24 11:54:27 EDT 2014 by praseem
+\* Created Thu Apr 24 14:24:49 EDT 2014 by praseem
