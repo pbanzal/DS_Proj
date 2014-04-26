@@ -25,7 +25,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2014-04-20 17:29:08)
+Starting... (2014-04-20 18:20:27)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
@@ -33,43 +33,44 @@ Computing initial states...
 @!@!@STARTMSG 2190:0 @!@!@
 Finished computing initial states: 1 distinct state generated.
 @!@!@ENDMSG 2190 @!@!@
-" send"  TRUE
 @!@!@STARTMSG 1000:1 @!@!@
 TLC threw an unexpected exception.
 This was probably caused by an error in the spec or model.
 See the User Output or TLC Console for clues to what happened.
 The exception was a java.lang.RuntimeException: In evaluation, the identifier Processes is either undefined or not an operator.
-line 20, col 43 to line 20, col 51 of module TestRC
+line 19, col 31 to line 19, col 39 of module TestRC
 @!@!@ENDMSG 1000 @!@!@
 @!@!@STARTMSG 2121:1 @!@!@
 The behavior up to this point is:
 @!@!@ENDMSG 2121 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
 1: <Initial predicate>
-/\ Processes = << [id |-> 1, seqNoRB |-> 0, inQueue |-> <<>>],
+Processes = << [id |-> 1, seqNoRB |-> 0, inQueue |-> <<>>],
    [id |-> 2, seqNoRB |-> 0, inQueue |-> <<>>],
    [id |-> 3, seqNoRB |-> 0, inQueue |-> <<>>] >>
-/\ rp = [id |-> 0, seqNoRB |-> 0, inQueue |-> <<>>]
 
 @!@!@ENDMSG 2217 @!@!@
-" send"  TRUE
 @!@!@STARTMSG 2103:1 @!@!@
 The error occurred when TLC was evaluating the nested
 expressions at the following positions:
-0. Line 20, column 16 to line 21, column 42 in TestRC
-1. Line 20, column 19 to line 20, column 57 in TestRC
-2. Line 9, column 20 to line 9, column 31 in RC
-3. Line 10, column 20 to line 10, column 37 in RC
-4. Line 11, column 20 to line 11, column 39 in RC
-5. Line 12, column 20 to line 12, column 75 in RC
-6. Line 12, column 20 to line 12, column 20 in RC
-7. Line 20, column 43 to line 20, column 56 in TestRC
-8. Line 20, column 43 to line 20, column 51 in TestRC
+0. Line 19, column 16 to line 21, column 132 in TestRC
+1. Line 19, column 19 to line 21, column 132 in TestRC
+2. Line 20, column 24 to line 20, column 52 in TestRC
+3. Line 9, column 20 to line 12, column 50 in RC
+4. Line 9, column 20 to line 11, column 83 in RC
+5. Line 9, column 20 to line 10, column 45 in RC
+6. Line 9, column 20 to line 9, column 31 in RC
+7. Line 10, column 28 to line 10, column 45 in RC
+8. Line 11, column 28 to line 11, column 83 in RC
+9. Line 11, column 28 to line 11, column 28 in RC
+10. Line 20, column 48 to line 20, column 51 in TestRC
+11. Line 19, column 31 to line 19, column 44 in TestRC
+12. Line 19, column 31 to line 19, column 39 in TestRC
 
 
 @!@!@ENDMSG 2103 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(1) at 2014-04-20 17:29:09: 1 states generated (487 s/min), 1 distinct states found (487 ds/min), 0 states left on queue.
+Progress(1) at 2014-04-20 18:20:28: 1 states generated (1621 s/min), 1 distinct states found (1621 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 1 states generated, 1 distinct states found, 0 states left on queue.
@@ -78,5 +79,5 @@ Progress(1) at 2014-04-20 17:29:09: 1 states generated (487 s/min), 1 distinct s
 The depth of the complete state graph search is 1.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished. (2014-04-20 17:29:09)
+Finished. (2014-04-20 18:20:28)
 @!@!@ENDMSG 2186 @!@!@

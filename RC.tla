@@ -2,26 +2,17 @@
 EXTENDS  Naturals, Sequences, TLC
 
 CONSTANT Data
+VARIABLE rcvQ
 
-Proc == INSTANCE ModProc WITH RMessage <- [content: Data]
+RMessage == [content:Data]
 
+init == rcvQ = <<>>
 
-Send(msg, p) == /\ msg \in Data
-                /\ p \in Proc!Process
-                /\ Print(" send", TRUE)
-                /\ p' = [p EXCEPT !.inQueue = Append(@, [content |-> msg])]
+Send(msg) == /\ msg \in Data
+             /\ rcvQ' = Append(rcvQ, [content: msg])
                    
-Recv(CB(_), p) ==   /\ p \in Proc!Process
-                    /\ p.inQueue # <<>>
-                    /\ CB(Head(p.inQueue).content)
-                    /\ p' = [p EXCEPT !.inQueue = Tail(@)]
-                          
-
-RecvQ(deliverQueue, p) == /\ p \in Proc!Process
-                          /\ deliverQueue \in Seq(Data)
-                          /\ p.inQueue # <<>>
-                          /\ deliverQueue = <<>>
-                          /\ deliverQueue' = Append(deliverQueue, Head(p.inQueue).content)
-                          /\ p' = [p EXCEPT !.inQueue = Tail(@)]
-
+Recv(CB(_)) ==  /\ rcvQ # <<>>
+                /\ CB(Head(rcvQ).content)
+                /\ rcvQ' = Tail(rcvQ)
+                
 =============================================================================
