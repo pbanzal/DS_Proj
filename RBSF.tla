@@ -59,9 +59,9 @@ Broadcast(msg, pid) ==  /\ Debug("START Broadcast............."\cup pid, 1)
                         /\ UNCHANGED <<rbQ,deliveredSet,crashed>>
                
 Deliver(CB(_,_), pid) ==  /\ Debug("START Deliver............."\cup pid, 1)
-                        /\ pid \in processes
-                        \* /\ rcQ' \in [processes -> SUBSET RMessage]
-                        /\  IF crashed[pid] # {TRUE}
+                          /\ pid \in processes
+                          \* /\ rcQ' \in [processes -> SUBSET RMessage]
+                          /\  IF crashed[pid] # {TRUE}
                             THEN
                             /\ LET newCB(currMsg)== IF currMsg \notin deliveredSet[pid] 
                                                     THEN
@@ -72,7 +72,7 @@ Deliver(CB(_,_), pid) ==  /\ Debug("START Deliver............."\cup pid, 1)
                                                                     THEN rcQ[dstP] \cup {currMsg}
                                                                     ELSE rcQ[pid]  \ {currMsg}]
                                                     /\ CB(currMsg.content.content,pid) 
-                                                    /\ UNCHANGED <<bQ,seqNoQ,crashed>>
+                                                    /\ UNCHANGED <<rbQ,bQ,seqNoQ,crashed>>
                                                     ELSE 
                                                     \* Remove frm rcQ 
                                                     /\ Debug("ELSE PART", 1)
@@ -86,8 +86,8 @@ Deliver(CB(_,_), pid) ==  /\ Debug("START Deliver............."\cup pid, 1)
                             UNCHANGED <<rcQ,rbQ,bQ,crashed,seqNoQ,deliveredSet>>
                             
 myCallBackForRB(m,p) ==   /\ Debug("Delivered by RB", 1) 
-                        /\ Debug(m, 1) 
-                        /\ rbQ' = [rbQ  EXCEPT ![p] = Append(@,m)]
+                          /\ Debug(m, 1) 
+                          \*/\ rbQ' = [rbQ  EXCEPT ![p] = Append(@,m)]
                                            
 Next ==  \E pid \in processes: 
              \/ \E m \in Message : Broadcast(m,pid)
@@ -96,7 +96,7 @@ Next ==  \E pid \in processes:
 \*NoCreation == [](\A pid \in processes: \A msg \in deliveredSet[pid] : \E bPid \in processes : msg \in bQ[bPid])
              
 state == <<rcQ, rbQ, bQ, crashed, seqNoQ, deliveredSet>>             
-NoCreation == [](\A pid \in processes: 
+NoCreation == (\A pid \in processes: 
                     \A msg \in Message: 
                         ([content |-> [content |->  msg, sendId |-> pid]] \in deliveredSet[pid]) =>
                              \E bPid \in processes : msg \in bQ[bPid])
@@ -117,7 +117,7 @@ Agreement == [] (\A bp, pi,pj \in processes\crashedProc :
                              
 
                          
-Liveness ==   \A pid \in processes,m \in Message : \/ WF_state(Broadcast(pid,m) \/ Deliver(myCallBackForRB,pid))
+Liveness ==   \A pid \in processes,m \in Message : \/ WF_state(Broadcast(m,pid) \/ Deliver(myCallBackForRB,pid))
 \*\/ WF_state(Broadcast(pid,m)) 
 \*                                                   \/ WF_state(Deliver(myCallBackForRB,pid))       
              
