@@ -33,6 +33,19 @@
   (forall ((m1 Message))
     (= (rcvQ (S t) m1) (and (rcvQ t m1) (not (= m1 m))))))
 
+; sending at time t
+; sending is actually incrementing rcv set
+(define-fun sendMsg ((t Time)(m Message)) Bool
+  (incRcv t m))
+
+; receiving at time t
+(define-fun rcvMsg ((t Time)) Bool
+  (exists ((m Message))
+     (and (= (rcvQ t m) true)
+          (decRcv t m)
+          (incDvr t m))))
+
+
 ; At time t, rcvQ is empty.
 (define-fun isRcvQEmpty ((t Time)) Bool
   (forall ((m Message)) (= (rcvQ t m) false)))
@@ -52,11 +65,8 @@
 (assert (= Next
   (forall ((t Time))
     (xor (exists ((m Message))
-            (incRcv t m))
-       (exists ((m Message))
-         (and (= (rcvQ t m) true)
-              (decRcv t m)
-              (incDvr t m)))
-       (and (invRcv t) (invDvr t))
+            (sendMsg t m))
+         (rcvMsg t)
+         (and (invRcv t) (invDvr t))
     ))))
 (check-sat)
