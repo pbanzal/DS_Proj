@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.lamport.tla.toolbox.tool.tlc.modelCheck">
-<stringAttribute key="TLCCmdLineParameters" value="-dump Graphdump -config /Users/praseem/Desktop/TLATemp/RBFIFO.cfg"/>
+<stringAttribute key="TLCCmdLineParameters" value="-dump Graphdump -config ../../RBFIFOREL.cfg"/>
 <intAttribute key="autoLockTime" value="15"/>
 <stringAttribute key="configurationName" value="Model_1"/>
-<intAttribute key="dfidDepth" value="1000"/>
+<intAttribute key="dfidDepth" value="100"/>
 <booleanAttribute key="dfidMode" value="false"/>
 <booleanAttribute key="distributedTLC" value="false"/>
 <stringAttribute key="distributedTLCScript" value=""/>
 <stringAttribute key="distributedTLCVMArgs" value=""/>
 <intAttribute key="fpBits" value="0"/>
 <intAttribute key="fpIndex" value="1"/>
-<intAttribute key="maxHeapSize" value="49"/>
+<intAttribute key="maxHeapSize" value="50"/>
 <intAttribute key="maxSetSize" value="1000000"/>
 <booleanAttribute key="mcMode" value="true"/>
 <stringAttribute key="modelBehaviorInit" value="Init"/>
@@ -21,18 +21,18 @@
 <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
 <listAttribute key="modelCorrectnessInvariants">
 <listEntry value="1FIFOProperty"/>
+<listEntry value="1NoCreation"/>
 </listAttribute>
 <listAttribute key="modelCorrectnessProperties">
-<listEntry value="1NoCreation"/>
 <listEntry value="1Agreement"/>
 <listEntry value="1BasicValidityv1"/>
 </listAttribute>
 <stringAttribute key="modelExpressionEval" value=""/>
 <stringAttribute key="modelParameterActionConstraint" value=""/>
 <listAttribute key="modelParameterConstants">
-<listEntry value="crashedProc;;{1};0;0"/>
-<listEntry value="processes;;{1};0;0"/>
-<listEntry value="Message;;{1};0;0"/>
+<listEntry value="crashedProc;;{2};0;0"/>
+<listEntry value="processes;;{1,2};0;0"/>
+<listEntry value="Message;;{0,1};0;0"/>
 </listAttribute>
 <stringAttribute key="modelParameterContraint" value=""/>
 <listAttribute key="modelParameterDefinitions"/>
@@ -43,6 +43,6 @@
 <intAttribute key="simuAril" value="-1"/>
 <intAttribute key="simuDepth" value="100"/>
 <intAttribute key="simuSeed" value="-1"/>
-<stringAttribute key="specName" value="RBFIFO"/>
+<stringAttribute key="specName" value="RBFIFOREL"/>
 <stringAttribute key="view" value=""/>
 </launchConfiguration>

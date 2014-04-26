@@ -4,6 +4,7 @@ State 1:
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<0, 0>>
 /\ rcQ = <<{}, {}>>
+/\ MessageQueue = <<<<0, 1>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
@@ -15,42 +16,23 @@ State 2:
 /\ seqNoQ = <<1, 0>>
 /\ rcQ = << {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
    {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
 State 3:
-/\ bQ = <<{1}, {}>>
-/\ procProcSeqSnd = <<<<1, 1>>, <<0, 0>>>>
-/\ rbQ = <<<<>>, <<>>>>
-/\ seqNoQ = <<1, 0>>
-/\ rcQ = << {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
-   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
-/\ deliveredSet = <<{}, {}>>
-/\ crashed = <<FALSE, TRUE>>
-/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
-
-State 4:
 /\ bQ = <<{}, {0}>>
 /\ procProcSeqSnd = <<<<0, 0>>, <<1, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<0, 1>>
 /\ rcQ = <<{[content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0]}, {}>>
+/\ MessageQueue = <<<<0, 1>>, <<1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
-State 5:
-/\ bQ = <<{}, {1}>>
-/\ procProcSeqSnd = <<<<0, 0>>, <<1, 0>>>>
-/\ rbQ = <<<<>>, <<>>>>
-/\ seqNoQ = <<0, 1>>
-/\ rcQ = <<{[content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 0]}, {}>>
-/\ deliveredSet = <<{}, {}>>
-/\ crashed = <<FALSE, TRUE>>
-/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
-
-State 6:
+State 4:
 /\ bQ = <<{0, 1}, {}>>
 /\ procProcSeqSnd = <<<<2, 2>>, <<0, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
@@ -59,21 +41,23 @@ State 6:
      [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
    { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
      [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
-State 7:
+State 5:
 /\ bQ = <<{0}, {}>>
 /\ procProcSeqSnd = <<<<1, 1>>, <<0, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<1, 0>>
 /\ rcQ = <<{}, {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]}>>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
 /\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
 
-State 8:
+State 6:
 /\ bQ = <<{0}, {0}>>
 /\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
@@ -81,23 +65,12 @@ State 8:
 /\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
      [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0] },
    {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
-State 9:
-/\ bQ = <<{0}, {1}>>
-/\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
-/\ rbQ = <<<<>>, <<>>>>
-/\ seqNoQ = <<1, 1>>
-/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
-     [content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 0] },
-   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
-/\ deliveredSet = <<{}, {}>>
-/\ crashed = <<FALSE, TRUE>>
-/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
-
-State 10:
+State 7:
 /\ bQ = <<{0}, {}>>
 /\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
@@ -105,30 +78,446 @@ State 10:
 /\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
      [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0] },
    {} >>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
-State 11:
+State 8:
+/\ bQ = <<{}, {0}>>
+/\ procProcSeqSnd = <<<<0, 1>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = <<{}, {[content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 0]}>>
+/\ MessageQueue = <<<<0, 1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 9:
+/\ bQ = <<{}, {0, 1}>>
+/\ procProcSeqSnd = <<<<0, 0>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<0, 2>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   {} >>
+/\ MessageQueue = <<<<0, 1>>, <<>>>>
+/\ deliveredSet = <<{}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 10:
 /\ bQ = <<{0, 1}, {}>>
 /\ procProcSeqSnd = <<<<2, 2>>, <<0, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<2, 0>>
-/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
-     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0] },
-   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
-     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0] } >>
+/\ rcQ = << {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]},
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 11:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
 State 12:
-/\ bQ = <<{1}, {}>>
-/\ procProcSeqSnd = <<<<1, 1>>, <<0, 0>>>>
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 13:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 2, seqNo |-> 0] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 14:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << {[content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0]},
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 15:
+/\ bQ = <<{0}, {}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<1, 0>>
-/\ rcQ = <<{}, {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]}>>
-/\ deliveredSet = <<{[content |-> 1, sendId |-> 1]}, {}>>
+/\ rcQ = <<{[content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0]}, {}>>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 16:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 17:
+/\ bQ = <<{0}, {0, 1}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 2>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<>>>>
+/\ deliveredSet = <<{}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 18:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 1],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0] },
+   {} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 19:
+/\ bQ = <<{0}, {}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 0>>
+/\ rcQ = <<{[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]}, {}>>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 20:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   {} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 21:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 0] } >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 22:
+/\ bQ = <<{}, {0, 1}>>
+/\ procProcSeqSnd = <<<<0, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<0, 2>>
+/\ rcQ = << {[content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 1]},
+   {[content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<0, 1>>, <<>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 23:
+/\ bQ = <<{}, {0}>>
+/\ procProcSeqSnd = <<<<0, 1>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = <<{}, {}>>
+/\ MessageQueue = <<<<0, 1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {[content |-> 0, sendId |-> 2]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 24:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<0, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << {},
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1], [content |-> 1, sendId |-> 1]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<2, 0>>, <<0, 0>>>>
+
+State 25:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 26:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 27:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 2, seqNo |-> 0] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 28:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 3>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 2],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 29:
+/\ bQ = <<{0, 1}, {0, 1}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 2>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<>>>>
+/\ deliveredSet = <<{}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 30:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 1],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]} >>
+/\ MessageQueue = <<<<>>, <<1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 31:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 2, seqNo |-> 1] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<1>>>>
+/\ deliveredSet = <<{}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 32:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 33:
+/\ bQ = <<{0, 1}, {0}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1]} >>
+/\ MessageQueue = <<<<>>, <<1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 34:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 2, seqNo |-> 1] },
+   {} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{}, {[content |-> 0, sendId |-> 1], [content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+State 35:
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 1, sendId |-> 1]}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
+
+State 36:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << {},
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1], [content |-> 0, sendId |-> 2]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 1>>, <<0, 0>>>>
+
+State 37:
+/\ bQ = <<{0}, {0, 1}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 2>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 38:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 1],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 0] },
+   {} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+
+State 39:
+/\ bQ = <<{0}, {}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 0>>
+/\ rcQ = <<{}, {}>>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<1, 1>>, <<0, 0>>>>
+
+State 40:
+/\ bQ = <<{0}, {0}>>
+/\ procProcSeqSnd = <<<<1, 1>>, <<2, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 2, seqNo |-> 0],
+     [content |-> [content |-> 0, sendId |-> 2], sendId |-> 2, seqNo |-> 1] },
+   {} >>
+/\ MessageQueue = <<<<1>>, <<1>>>>
+/\ deliveredSet = <<{[content |-> 0, sendId |-> 1]}, {[content |-> 0, sendId |-> 1]}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
 

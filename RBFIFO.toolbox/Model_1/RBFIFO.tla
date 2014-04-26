@@ -18,9 +18,10 @@ VARIABLES
      seqNoQ,
      procProcSeqRcv,
      procProcSeqSnd,
-     deliveredSet
+     deliveredSet,
+     MessageQueue
 
-RBMessage == [content: Message, sendId : processes]\*, seqNo:{0}]
+RBMessage == [content: Message, sendId : processes]
 RMessage == [content : RBMessage, sendId: processes, seqNo: Nat]
 
 Debug(msg,level) == IF level > 1 THEN Print(msg, TRUE) ELSE TRUE
@@ -34,7 +35,8 @@ Init == /\ rcQ = [p \in processes |-> {}]
         /\ seqNoQ = [p \in processes |-> 0]
         /\ procProcSeqRcv = [pi \in processes |-> [pj \in processes |-> 0]]
         /\ procProcSeqSnd = [pi \in processes |-> [pj \in processes |-> 0]]
-        /\ deliveredSet = [p \in processes |-> {}]   
+        /\ deliveredSet = [p \in processes |-> {}]
+        /\ MessageQueue = [p \in processes |-> <<0,1>>]      
         
 Perms == Permutations(rcQ)
 
@@ -52,7 +54,6 @@ Broadcast(msg, pid) ==  /\ Debug("START Broadcast............."\cup pid, 1)
                                         \E p \in processes: 
                                             /\ crashed[p] = FALSE
                                             /\ rcQ' = [rcQ EXCEPT ![p] = @ \cup {[content |-> [content |->  msg, sendId |-> pid], sendId |-> pid, seqNo |-> procProcSeqSnd[pid][p]]}]
-                                            \*/\ procProcSeqSnd' = [pi \in processes |-> [pj \in processes |-> IF pi = pid THEN IF pj = p THEN procProcSeqSnd[pi][pj] + 1 ELSE procProcSeqSnd[pi][pj] ELSE procProcSeqSnd[pi][pj]]]
                                             /\ procProcSeqSnd' = [procProcSeqSnd EXCEPT ![pid][p] = @ + 1]
                                    ELSE 
                                         /\ rcQ' = [p \in processes |-> rcQ[p] \cup {[content |-> [content |->  msg, sendId |-> pid], sendId |-> pid, seqNo |-> procProcSeqSnd[pid][p]]}]
@@ -85,30 +86,31 @@ Deliver(CB(_,_), pid) ==    /\ Debug("START Deliver............."\cup pid, 1)
                                                                         /\ UNCHANGED <<rbQ,bQ,seqNoQ,crashed,procProcSeqSnd>>
                                                                 /\ CB(currMsg.content.content,pid) 
                                                             ELSE 
-                                                                \* Remove frm rcQ 
                                                                 /\ Debug("ELSE PART", 1)
                                                                 /\ rcQ' = [rcQ EXCEPT ![pid] = @ \ {currMsg}] 
                                                                 /\ UNCHANGED <<deliveredSet,rbQ,seqNoQ,bQ,crashed,procProcSeqSnd>>
                                IN   /\ rcQ[pid] # {}
                                     /\  IF crashed[pid] = FALSE THEN 
-                                            LET elem == CHOOSE x \in rcQ[pid] : x.seqNo = procProcSeqRcv[pid][x.sendId]
-                                            IN  /\ newCB(elem)
-                                                /\ procProcSeqRcv' = [procProcSeqRcv EXCEPT ![pid][elem.sendId] = @ + 1]
+                                            /\ \E x \in rcQ[pid] : 
+                                                /\ x.seqNo = procProcSeqRcv[pid][x.sendId]
+                                                /\ newCB(x)
+                                                /\ procProcSeqRcv' = [procProcSeqRcv EXCEPT ![pid][x.sendId] = @ + 1]
                                         ELSE 
-                                            LET elem == CHOOSE x \in rcQ[pid] : TRUE
-                                            IN  /\ newCB(elem)
+                                            \E x \in rcQ[pid] : 
+                                                /\ newCB(x)
                                                 /\ UNCHANGED <<procProcSeqRcv>>
                              
 myCallBackForRB(m,p) ==   /\ Debug("Delivered by RB", 1) 
                           /\ Debug(m, 1) 
-                          \*/\ rbQ' = [rbQ  EXCEPT ![p] = Append(@,m)]
                                            
 Next ==  \E pid \in processes: 
-             \/ \E m \in Message : Broadcast(m,pid)
-             \/ Deliver(myCallBackForRB, pid)
-
-\*NoCreation == [](\A pid \in processes: \A msg \in deliveredSet[pid] : \E bPid \in processes : msg \in bQ[bPid])
+             \/ /\ MessageQueue[pid] # <<>>
+                /\ Broadcast(Head(MessageQueue[pid]), pid)
+                /\ MessageQueue' = [MessageQueue EXCEPT ![pid] = Tail(@)] 
+             \/ /\ Deliver(myCallBackForRB, pid)
+                /\ UNCHANGED<<MessageQueue>> 
              
+
 state == <<rcQ, rbQ, bQ, crashed, seqNoQ, deliveredSet>>             
 NoCreation == (\A pid, bPid \in processes: \A msg \in Message:
                                 ([content |->  msg, sendId |-> bPid] \in deliveredSet[pid]) =>  msg \in bQ[bPid])
@@ -118,7 +120,6 @@ BasicValidityv1 ==  (\A pi \in processes:
                           \A m \in Message:
                              (m \in bQ[pi]) ~> ([content |->  m, sendId |-> pi] \in deliveredSet[pj]))
                              
-\* Agreement : If one correct process delivers a message m, then every correct process eventually delivers m.                             
 Agreement ==  (\A bp, pi,pj \in processes\crashedProc : 
                  \A m \in Message:
                     ([content |->  m, sendId |-> bp] \in deliveredSet[pi]) ~> ([content |->  m, sendId |-> bp]  \in deliveredSet[pj]) )                       
@@ -128,12 +129,8 @@ FIFOProperty == (\A mi \in Message: \A pi,pj \in processes\crashedProc:
             
                                          
 Liveness ==   \A pid \in processes,m \in Message : \/ WF_state(Broadcast(m,pid) \/ Deliver(myCallBackForRB,pid))
-\*\/ WF_state(Broadcast(pid,m)) 
-\*\/ WF_state(Deliver(myCallBackForRB,pid))       
-             
            
 RBSpec ==   /\ Init 
-            /\ [][Next]_<<rcQ,bQ,rbQ,seqNoQ,deliveredSet,crashed,procProcSeqSnd,procProcSeqRcv>>
+            /\ [][Next]_<<rcQ,bQ,rbQ,seqNoQ,deliveredSet,crashed,procProcSeqSnd,procProcSeqRcv,MessageQueue>>
             /\ Liveness
-            
 =============================================================================

@@ -23,7 +23,7 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2014-04-26 17:40:42)
+Starting... (2014-04-26 18:29:24)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2212:0 @!@!@
 Implied-temporal checking--satisfiability problem has 6 branches.
@@ -47,159 +47,202 @@ The behavior up to this point is:
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<0, 0>>
 /\ rcQ = <<{}, {}>>
+/\ MessageQueue = <<<<0, 1>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-2: <Action line 43, col 25 to line 63, col 80 of module RBFIFO>
-/\ bQ = <<{1}, {}>>
+2: <Action line 107, col 17 to line 109, col 73 of module RBFIFO>
+/\ bQ = <<{0}, {}>>
 /\ procProcSeqSnd = <<<<1, 1>>, <<0, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
 /\ seqNoQ = <<1, 0>>
-/\ rcQ = << {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
-   {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ rcQ = << {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]},
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<1>>, <<0, 1>>>>
 /\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
 /\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2217:4 @!@!@
-3: <Action line 65, col 29 to line 100, col 79 of module RBFIFO>
-/\ bQ = <<{1}, {}>>
-/\ procProcSeqSnd = <<<<1, 1>>, <<0, 0>>>>
+3: <Action line 107, col 17 to line 109, col 73 of module RBFIFO>
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<0, 0>>>>
 /\ rbQ = <<<<>>, <<>>>>
-/\ seqNoQ = <<1, 0>>
-/\ rcQ = <<{}, {[content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 0]}>>
-/\ deliveredSet = <<{[content |-> 1, sendId |-> 1]}, {}>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] } >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{}, {}>>
 /\ crashed = <<FALSE, TRUE>>
-/\ procProcSeqRcv = <<<<1, 0>>, <<0, 0>>>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <Action line 110, col 17 to line 111, col 44 of module RBFIFO>
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 2, seqNo |-> 0] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 0>>, <<0, 0>>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <Action line 110, col 17 to line 111, col 44 of module RBFIFO>
+/\ bQ = <<{0, 1}, {}>>
+/\ procProcSeqSnd = <<<<2, 2>>, <<1, 0>>>>
+/\ rbQ = <<<<>>, <<>>>>
+/\ seqNoQ = <<2, 0>>
+/\ rcQ = << { [content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0],
+     [content |-> [content |-> 1, sendId |-> 1], sendId |-> 1, seqNo |-> 1] },
+   {[content |-> [content |-> 0, sendId |-> 1], sendId |-> 1, seqNo |-> 0]} >>
+/\ MessageQueue = <<<<>>, <<0, 1>>>>
+/\ deliveredSet = <<{[content |-> 1, sendId |-> 1]}, {[content |-> 1, sendId |-> 1]}>>
+/\ crashed = <<FALSE, TRUE>>
+/\ procProcSeqRcv = <<<<0, 1>>, <<0, 0>>>>
 
 @!@!@ENDMSG 2217 @!@!@
 @!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2014-04-26 17:40:44
+The coverage statistics at 2014-04-26 18:29:27
 @!@!@ENDMSG 2201 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 100, col 64 to line 100, col 77 of module RBFIFO: 1
+  line 101, col 64 to line 101, col 77 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 49, col 36 to line 49, col 75 of module RBFIFO: 8
+  line 109, col 20 to line 109, col 73 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 54, col 48 to line 54, col 181 of module RBFIFO: 4
+  line 111, col 31 to line 111, col 42 of module RBFIFO: 29
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 56, col 48 to line 56, col 106 of module RBFIFO: 4
+  line 51, col 36 to line 51, col 75 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 58, col 44 to line 58, col 184 of module RBFIFO: 4
+  line 56, col 48 to line 56, col 181 of module RBFIFO: 13
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 59, col 44 to line 59, col 178 of module RBFIFO: 4
+  line 57, col 48 to line 57, col 106 of module RBFIFO: 13
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 60, col 36 to line 60, col 75 of module RBFIFO: 8
+  line 59, col 44 to line 59, col 184 of module RBFIFO: 10
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 62, col 48 to line 62, col 49 of module RBFIFO: 2
+  line 60, col 44 to line 60, col 178 of module RBFIFO: 10
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 62, col 51 to line 62, col 53 of module RBFIFO: 2
+  line 61, col 36 to line 61, col 75 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 62, col 55 to line 62, col 60 of module RBFIFO: 2
+  line 63, col 48 to line 63, col 49 of module RBFIFO: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 62, col 62 to line 62, col 75 of module RBFIFO: 2
+  line 63, col 51 to line 63, col 53 of module RBFIFO: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 63, col 40 to line 63, col 42 of module RBFIFO: 10
+  line 63, col 55 to line 63, col 60 of module RBFIFO: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 63, col 44 to line 63, col 55 of module RBFIFO: 10
+  line 63, col 62 to line 63, col 75 of module RBFIFO: 0
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 63, col 57 to line 63, col 63 of module RBFIFO: 10
+  line 64, col 40 to line 64, col 42 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 63, col 65 to line 63, col 78 of module RBFIFO: 10
+  line 64, col 44 to line 64, col 55 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 68, col 68 to line 68, col 138 of module RBFIFO: 3
+  line 64, col 57 to line 64, col 63 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 70, col 76 to line 74, col 114 of module RBFIFO: 1
+  line 64, col 65 to line 64, col 78 of module RBFIFO: 23
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 75, col 76 to line 81, col 169 of module RBFIFO: 1
+  line 69, col 68 to line 69, col 138 of module RBFIFO: 28
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 82, col 102 to line 82, col 108 of module RBFIFO: 1
+  line 71, col 76 to line 75, col 114 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 82, col 88 to line 82, col 90 of module RBFIFO: 1
+  line 76, col 76 to line 82, col 169 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 82, col 92 to line 82, col 93 of module RBFIFO: 1
+  line 83, col 102 to line 83, col 108 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 82, col 95 to line 82, col 100 of module RBFIFO: 1
+  line 83, col 88 to line 83, col 90 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 84, col 76 to line 84, col 117 of module RBFIFO: 2
+  line 83, col 92 to line 83, col 93 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 85, col 102 to line 85, col 108 of module RBFIFO: 2
+  line 83, col 95 to line 83, col 100 of module RBFIFO: 16
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 85, col 110 to line 85, col 123 of module RBFIFO: 2
+  line 85, col 76 to line 85, col 117 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 85, col 88 to line 85, col 90 of module RBFIFO: 2
+  line 86, col 102 to line 86, col 108 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 85, col 92 to line 85, col 93 of module RBFIFO: 2
+  line 86, col 110 to line 86, col 123 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 85, col 95 to line 85, col 100 of module RBFIFO: 2
+  line 86, col 88 to line 86, col 90 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 90, col 68 to line 90, col 109 of module RBFIFO: 0
+  line 86, col 92 to line 86, col 93 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 104 to line 91, col 105 of module RBFIFO: 0
+  line 86, col 95 to line 86, col 100 of module RBFIFO: 12
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 107 to line 91, col 113 of module RBFIFO: 0
+  line 90, col 68 to line 90, col 109 of module RBFIFO: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 115 to line 91, col 128 of module RBFIFO: 0
+  line 91, col 104 to line 91, col 105 of module RBFIFO: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 80 to line 91, col 91 of module RBFIFO: 0
+  line 91, col 107 to line 91, col 113 of module RBFIFO: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 93 to line 91, col 95 of module RBFIFO: 0
+  line 91, col 115 to line 91, col 128 of module RBFIFO: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 91, col 97 to line 91, col 102 of module RBFIFO: 0
+  line 91, col 80 to line 91, col 91 of module RBFIFO: 1
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2221:0 @!@!@
-  line 96, col 52 to line 96, col 120 of module RBFIFO: 2
+  line 91, col 93 to line 91, col 95 of module RBFIFO: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 91, col 97 to line 91, col 102 of module RBFIFO: 1
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 97, col 52 to line 97, col 117 of module RBFIFO: 17
 @!@!@ENDMSG 2221 @!@!@
 @!@!@STARTMSG 2202:0 @!@!@
 End of statistics.
 @!@!@ENDMSG 2202 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(3) at 2014-04-26 17:40:44: 14 states generated (825 s/min), 12 distinct states found (707 ds/min), 9 states left on queue.
+Progress(5) at 2014-04-26 18:29:27: 53 states generated (1602 s/min), 40 distinct states found (1209 ds/min), 25 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
-14 states generated, 12 distinct states found, 9 states left on queue.
+53 states generated, 40 distinct states found, 25 states left on queue.
 @!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 3.
+The depth of the complete state graph search is 5.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished. (2014-04-26 17:40:44)
+Finished. (2014-04-26 18:29:27)
 @!@!@ENDMSG 2186 @!@!@

@@ -1,4 +1,4 @@
--------------------------------- MODULE RBFIFO --------------------------------
+-------------------------------- MODULE RBFIFOREL --------------------------------
 EXTENDS  
     Naturals, 
     Sequences, 
@@ -6,7 +6,7 @@ EXTENDS
     FiniteSets
 
 CONSTANTS 
-    Message, 
+    Message,
     processes,
     crashedProc
 
@@ -36,7 +36,7 @@ Init == /\ rcQ = [p \in processes |-> {}]
         /\ procProcSeqRcv = [pi \in processes |-> [pj \in processes |-> 0]]
         /\ procProcSeqSnd = [pi \in processes |-> [pj \in processes |-> 0]]
         /\ deliveredSet = [p \in processes |-> {}]
-        /\ MessageQueue = [p \in processes |-> <<0,1>>]      
+        /\ MessageQueue = [p \in processes |-> <<0,1>>]   
         
 Perms == Permutations(rcQ)
 
@@ -90,28 +90,24 @@ Deliver(CB(_,_), pid) ==    /\ Debug("START Deliver............."\cup pid, 1)
                                                                 /\ rcQ' = [rcQ EXCEPT ![pid] = @ \ {currMsg}] 
                                                                 /\ UNCHANGED <<deliveredSet,rbQ,seqNoQ,bQ,crashed,procProcSeqSnd>>
                                IN   /\ rcQ[pid] # {}
-                                    /\  IF crashed[pid] = FALSE THEN 
-                                            /\ \E x \in rcQ[pid] : 
-                                                /\ x.seqNo = procProcSeqRcv[pid][x.sendId]
-                                                /\ newCB(x)
-                                                /\ procProcSeqRcv' = [procProcSeqRcv EXCEPT ![pid][x.sendId] = @ + 1]
-                                        ELSE 
-                                            \E x \in rcQ[pid] : 
-                                                /\ newCB(x)
-                                                /\ UNCHANGED <<procProcSeqRcv>>
+                                    /\ \E elem \in rcQ[pid] : 
+                                            /\ elem.seqNo = procProcSeqRcv[pid][elem.sendId]
+                                            /\ newCB(elem)
+                                            /\ procProcSeqRcv' = [procProcSeqRcv EXCEPT ![pid][elem.sendId] = @ + 1]
+                                        
                              
 myCallBackForRB(m,p) ==   /\ Debug("Delivered by RB", 1) 
                           /\ Debug(m, 1) 
                                            
 Next ==  \E pid \in processes: 
              \/ /\ MessageQueue[pid] # <<>>
-                /\ Broadcast(Head(MessageQueue[pid]), pid)
+                /\ Broadcast(Head(MessageQueue[pid]),pid)
                 /\ MessageQueue' = [MessageQueue EXCEPT ![pid] = Tail(@)] 
              \/ /\ Deliver(myCallBackForRB, pid)
                 /\ UNCHANGED<<MessageQueue>> 
-             
 
-state == <<rcQ, rbQ, bQ, crashed, seqNoQ, deliveredSet>>             
+state == <<rcQ, rbQ, bQ, crashed, seqNoQ, deliveredSet>>
+             
 NoCreation == (\A pid, bPid \in processes: \A msg \in Message:
                                 ([content |->  msg, sendId |-> bPid] \in deliveredSet[pid]) =>  msg \in bQ[bPid])
                              
