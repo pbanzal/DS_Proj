@@ -101,7 +101,8 @@ NoCreation == (\A pid \in processes:
                         ([content |-> [content |->  msg, sendId |-> pid]] \in deliveredSet[pid]) =>
                              \E bPid \in processes : msg \in bQ[bPid])
                              
-BasicValidityv1 == []  (\A pi,pj \in processes:
+BasicValidityv1 ==  (\A pi \in processes:
+                        \A pj \in processes\crashedProc:
                           \A m \in Message:
                              (m \in bQ[pi]) ~> ([content |-> [content |->  m, sendId |-> pi]] \in deliveredSet[pj]))
                              
@@ -111,7 +112,7 @@ BasicValidityv1 == []  (\A pi,pj \in processes:
                                            /\ WF_state(myCallBackForRB(m,pj))))*)
                              
 \* Agreement : If one correct process delivers a message m, then every correct process eventually delivers m.                             
-Agreement == [] (\A bp, pi,pj \in processes\crashedProc : 
+Agreement ==  (\A bp, pi,pj \in processes\crashedProc : 
                  \A m \in Message:
                     ([content |-> [content |->  m, sendId |-> bp]] \in deliveredSet[pi]) ~> ([content |-> [content |->  m, sendId |-> bp]]  \in deliveredSet[pj]) )                       
                              
