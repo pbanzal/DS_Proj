@@ -2,41 +2,40 @@
 EXTENDS RBSF, TLC
 
 \* CONSTANT definitions @modelParameterConstants:0processes
-const_1398461290125527000 == 
+const_139852998607070000 == 
 {1,2}
 ----
 
 \* CONSTANT definitions @modelParameterConstants:1Message
-const_1398461290136528000 == 
+const_139852998608171000 == 
 {"M1"}
 ----
 
 \* CONSTANT definitions @modelParameterConstants:2crashedProc
-const_1398461290147529000 == 
+const_139852998609272000 == 
 {}
 ----
 
-\* CONSTANT definitions @modelParameterConstants:3qLen
-const_1398461290158530000 == 
-0
-----
-
 \* INIT definition @modelBehaviorInit:0
-init_1398461290169531000 ==
+init_139852998610373000 ==
 Init
 ----
 \* NEXT definition @modelBehaviorNext:0
-next_1398461290180532000 ==
+next_139852998611474000 ==
 [Next]_<<rcQ,rbQ,seqNoQ,deliveredSet,bQ,crashed>>
 ----
 \* INVARIANT definition @modelCorrectnessInvariants:0
-inv_1398461290191533000 ==
-TotalLiveness
+inv_139852998612575000 ==
+NoCreation
 ----
 \* PROPERTY definition @modelCorrectnessProperties:0
-prop_1398461290202534000 ==
+prop_139852998613576000 ==
 BasicValidityv1
+----
+\* PROPERTY definition @modelCorrectnessProperties:1
+prop_139852998614677000 ==
+Agreement
 ----
 =============================================================================
 \* Modification History
-\* Created Fri Apr 25 17:28:10 EDT 2014 by praseem
+\* Created Sat Apr 26 12:33:06 EDT 2014 by praseem

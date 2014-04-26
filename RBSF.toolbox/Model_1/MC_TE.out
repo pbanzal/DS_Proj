@@ -23,16 +23,228 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2014-04-25 17:28:11)
+Starting... (2014-04-26 12:33:07)
 @!@!@ENDMSG 2185 @!@!@
-@!@!@STARTMSG 1000:1 @!@!@
-TLC threw an unexpected exception.
-This was probably caused by an error in the spec or model.
-See the User Output or TLC Console for clues to what happened.
-The exception was a java.lang.RuntimeException: @!@!@STARTMSG 2241:0 @!@!@
-The property BasicValidityv1 is not correctly defined.
-@!@!@ENDMSG 2241 @!@!@
-@!@!@ENDMSG 1000 @!@!@
+@!@!@STARTMSG 2212:0 @!@!@
+Implied-temporal checking--satisfiability problem has 2 branches.
+@!@!@ENDMSG 2212 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2192:0 @!@!@
+Checking temporal properties for the complete state space...
+@!@!@ENDMSG 2192 @!@!@
+@!@!@STARTMSG 2116:1 @!@!@
+Temporal properties were violated.
+
+@!@!@ENDMSG 2116 @!@!@
+@!@!@STARTMSG 2264:1 @!@!@
+The following behavior constitutes a counter-example:
+
+@!@!@ENDMSG 2264 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ seqNoQ = <<0, 0>>
+/\ rcQ = <<{}, {}>>
+/\ deliveredSet = <<{}, {}>>
+/\ bQ = <<{}, {}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<>>, <<>>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = << {[content |-> [content |-> "M1", sendId |-> 2]]},
+   {[content |-> [content |-> "M1", sendId |-> 2]]} >>
+/\ deliveredSet = <<{}, {}>>
+/\ bQ = <<{}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<>>, <<>>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = <<{}, {[content |-> [content |-> "M1", sendId |-> 2]]}>>
+/\ deliveredSet = <<{[content |-> [content |-> "M1", sendId |-> 2]]}, {}>>
+/\ bQ = <<{}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<"M1">>, <<>>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = <<{[content |-> [content |-> "M1", sendId |-> 2]]}, {}>>
+/\ deliveredSet = << {[content |-> [content |-> "M1", sendId |-> 2]]},
+   {[content |-> [content |-> "M1", sendId |-> 2]]} >>
+/\ bQ = <<{}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<"M1">>, <<"M1">>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<0, 1>>
+/\ rcQ = <<{}, {}>>
+/\ deliveredSet = << {[content |-> [content |-> "M1", sendId |-> 2]]},
+   {[content |-> [content |-> "M1", sendId |-> 2]]} >>
+/\ bQ = <<{}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<"M1">>, <<"M1">>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = << {[content |-> [content |-> "M1", sendId |-> 1]]},
+   {[content |-> [content |-> "M1", sendId |-> 1]]} >>
+/\ deliveredSet = << {[content |-> [content |-> "M1", sendId |-> 2]]},
+   {[content |-> [content |-> "M1", sendId |-> 2]]} >>
+/\ bQ = <<{"M1"}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<"M1">>, <<"M1">>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <Action line 25, col 1 to line 25, col 49 of module MC>
+/\ seqNoQ = <<1, 1>>
+/\ rcQ = <<{[content |-> [content |-> "M1", sendId |-> 1]]}, {}>>
+/\ deliveredSet = << {[content |-> [content |-> "M1", sendId |-> 2]]},
+   { [content |-> [content |-> "M1", sendId |-> 1]],
+     [content |-> [content |-> "M1", sendId |-> 2]] } >>
+/\ bQ = <<{"M1"}, {"M1"}>>
+/\ crashed = <<{FALSE}, {FALSE}>>
+/\ rbQ = <<<<"M1">>, <<"M1", "M1">>>>
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2218:4 @!@!@
+8: Stuttering
+@!@!@ENDMSG 2218 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2014-04-26 12:33:09
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 10 to line 25, col 12 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 14 to line 25, col 16 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 18 to line 25, col 23 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 25 to line 25, col 36 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 38 to line 25, col 39 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 41 to line 25, col 47 of module MC: 49
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 25, col 8 to line 25, col 49 of module MC: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 46, col 36 to line 46, col 75 of module RBSF: 14
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 51, col 48 to line 51, col 131 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 53, col 41 to line 53, col 131 of module RBSF: 14
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 54, col 36 to line 54, col 75 of module RBSF: 14
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 56, col 36 to line 56, col 74 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 58, col 48 to line 58, col 49 of module RBSF: 84
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 58, col 51 to line 58, col 53 of module RBSF: 84
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 58, col 55 to line 58, col 60 of module RBSF: 84
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 59, col 40 to line 59, col 42 of module RBSF: 98
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 59, col 44 to line 59, col 55 of module RBSF: 98
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 59, col 57 to line 59, col 63 of module RBSF: 98
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 69, col 60 to line 69, col 122 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 70, col 60 to line 73, col 99 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 75, col 72 to line 75, col 73 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 75, col 75 to line 75, col 80 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 75, col 82 to line 75, col 88 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 79, col 60 to line 79, col 101 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 80, col 72 to line 80, col 83 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 80, col 85 to line 80, col 87 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 80, col 89 to line 80, col 94 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 80, col 96 to line 80, col 97 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 80, col 99 to line 80, col 105 of module RBSF: 22
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 45 to line 86, col 47 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 49 to line 86, col 51 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 53 to line 86, col 54 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 56 to line 86, col 62 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 64 to line 86, col 69 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 86, col 71 to line 86, col 82 of module RBSF: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 90, col 32 to line 90, col 70 of module RBSF: 44
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(9) at 2014-04-26 12:33:09: 214 states generated (11683 s/min), 49 distinct states found (2675 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+214 states generated, 49 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished. (2014-04-25 17:28:11)
+Finished. (2014-04-26 12:33:09)
 @!@!@ENDMSG 2186 @!@!@

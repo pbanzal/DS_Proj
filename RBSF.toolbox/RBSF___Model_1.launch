@@ -20,10 +20,11 @@
 <stringAttribute key="modelBehaviorVars" value="seqNoQ, rcQ, deliveredSet, bQ, crashed, rbQ"/>
 <booleanAttribute key="modelCorrectnessCheckDeadlock" value="false"/>
 <listAttribute key="modelCorrectnessInvariants">
-<listEntry value="1TotalLiveness"/>
+<listEntry value="1NoCreation"/>
 </listAttribute>
 <listAttribute key="modelCorrectnessProperties">
 <listEntry value="1BasicValidityv1"/>
+<listEntry value="1Agreement"/>
 </listAttribute>
 <stringAttribute key="modelExpressionEval" value=""/>
 <stringAttribute key="modelParameterActionConstraint" value=""/>
@@ -31,7 +32,6 @@
 <listEntry value="processes;;{1,2};0;0"/>
 <listEntry value="Message;;{&quot;M1&quot;};0;0"/>
 <listEntry value="crashedProc;;{};0;0"/>
-<listEntry value="qLen;;0;0;0"/>
 </listAttribute>
 <stringAttribute key="modelParameterContraint" value=""/>
 <listAttribute key="modelParameterDefinitions"/>
