@@ -23,123 +23,16 @@ Semantic processing of module MC
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2014-04-24 14:24:50)
+Starting... (2014-04-25 17:28:11)
 @!@!@ENDMSG 2185 @!@!@
-@!@!@STARTMSG 2189:0 @!@!@
-Computing initial states...
-@!@!@ENDMSG 2189 @!@!@
-@!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated.
-@!@!@ENDMSG 2190 @!@!@
-@!@!@STARTMSG 2193:0 @!@!@
-Model checking completed. No error has been found.
-  Estimates of the probability that TLC did not check all reachable states
-  because two distinct states had the same fingerprint:
-  calculated (optimistic):  val = 2.2E-11
-  based on the actual fingerprints:  val = 1.4E-11
-@!@!@ENDMSG 2193 @!@!@
-@!@!@STARTMSG 2201:0 @!@!@
-The coverage statistics at 2014-04-24 14:24:53
-@!@!@ENDMSG 2201 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 47, col 36 to line 47, col 75 of module RBSF: 1323
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 52, col 48 to line 52, col 131 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 54, col 41 to line 54, col 131 of module RBSF: 1323
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 55, col 36 to line 55, col 75 of module RBSF: 1323
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 57, col 36 to line 57, col 74 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 59, col 48 to line 59, col 49 of module RBSF: 26460
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 59, col 51 to line 59, col 53 of module RBSF: 26460
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 59, col 55 to line 59, col 60 of module RBSF: 26460
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 60, col 40 to line 60, col 42 of module RBSF: 27783
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 60, col 44 to line 60, col 55 of module RBSF: 27783
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 60, col 57 to line 60, col 63 of module RBSF: 27783
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 70, col 56 to line 70, col 118 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 71, col 56 to line 74, col 95 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 76, col 68 to line 76, col 70 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 76, col 72 to line 76, col 73 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 76, col 75 to line 76, col 80 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 76, col 82 to line 76, col 88 of module RBSF: 13518
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 80, col 56 to line 80, col 97 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 81, col 68 to line 81, col 79 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 81, col 81 to line 81, col 83 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 81, col 85 to line 81, col 90 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 81, col 92 to line 81, col 93 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 81, col 95 to line 81, col 101 of module RBSF: 11265
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 41 to line 87, col 43 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 45 to line 87, col 47 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 49 to line 87, col 50 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 52 to line 87, col 58 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 60 to line 87, col 65 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2221:0 @!@!@
-  line 87, col 67 to line 87, col 78 of module RBSF: 0
-@!@!@ENDMSG 2221 @!@!@
-@!@!@STARTMSG 2202:0 @!@!@
-End of statistics.
-@!@!@ENDMSG 2202 @!@!@
-@!@!@STARTMSG 2200:0 @!@!@
-Progress(19) at 2014-04-24 14:24:53: 52567 states generated (1659137 s/min), 9261 distinct states found (292298 ds/min), 0 states left on queue.
-@!@!@ENDMSG 2200 @!@!@
-@!@!@STARTMSG 2199:0 @!@!@
-52567 states generated, 9261 distinct states found, 0 states left on queue.
-@!@!@ENDMSG 2199 @!@!@
-@!@!@STARTMSG 2194:0 @!@!@
-The depth of the complete state graph search is 19.
-@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 1000:1 @!@!@
+TLC threw an unexpected exception.
+This was probably caused by an error in the spec or model.
+See the User Output or TLC Console for clues to what happened.
+The exception was a java.lang.RuntimeException: @!@!@STARTMSG 2241:0 @!@!@
+The property BasicValidityv1 is not correctly defined.
+@!@!@ENDMSG 2241 @!@!@
+@!@!@ENDMSG 1000 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished. (2014-04-24 14:24:53)
+Finished. (2014-04-25 17:28:11)
 @!@!@ENDMSG 2186 @!@!@
